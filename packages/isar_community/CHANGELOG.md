@@ -1,8 +1,10 @@
-## 3.2.0-dev.2
+## 3.2.0-dev.3
+
+### Updates  
+- Updated `libmdbx` to `0.13.8`. Fixes compatibility with older Android devices (kernel < 4)
 
 ### Fixes
-
-- Fixed iOS targeting
+- Address an issue preventing successful Windows builds
 
 ## 3.2.0-dev.1
 
