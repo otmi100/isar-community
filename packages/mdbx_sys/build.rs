@@ -82,14 +82,13 @@ fn ensure_libmdbx(out_dir: &Path) -> PathBuf {
 }
 
 fn parse_semver_from_tag(tag: &str) -> (u32, u32, u32, u32, &'static str) {
-    // Expect formats like v0.13.7 or 0.13.7
     let t = tag.trim_start_matches('v');
     let mut parts = t.split('.');
     let major = parts.next().unwrap_or("0").parse().unwrap_or(0);
     let minor = parts.next().unwrap_or("0").parse().unwrap_or(0);
     let patch = parts.next().unwrap_or("0").parse().unwrap_or(0);
     let tweak = 0u32;
-    let prerelease: &'static str = ""; // keep empty like Vorot's release builds
+    let prerelease: &'static str = "";
     (major, minor, patch, tweak, prerelease)
 }
 
@@ -167,7 +166,12 @@ fn main() {
         cc_builder.pic(true);
     }
 
-    // Define MDBX_BUILD_FLAGS for parity with Vorot
+    if cfg!(debug_assertions) {
+        cc_builder.define("MDBX_FORCE_ASSERTIONS", "1");
+    } else {
+        cc_builder.define("NDEBUG", "1");
+    }
+
     let flags = format!(
         "\"-NDEBUG={} {}\"",
         u8::from(!cfg!(debug_assertions)),
@@ -188,7 +192,6 @@ fn main() {
         cc_builder.define("MDBX_HAVE_BUILTIN_CPU_SUPPORTS", "0");
     }
 
-    // Android specific tweaks
     if target_os == "android" {
         cc_builder.define("MDBX_HAVE_BUILTIN_CPU_SUPPORTS", "0");
         cc_builder.define("MDBX_ENV_CHECKPID", "0");
