@@ -1,3 +1,8 @@
+## 3.2.1
+
+### Fixes
+- Minor publishing issue
+
 ## 3.2.0
 
 ### Fixes
