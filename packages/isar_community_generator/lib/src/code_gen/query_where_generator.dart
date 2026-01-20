@@ -139,7 +139,7 @@ class WhereGenerator {
 
   String generateAnyId() {
     return '''
-    QueryBuilder<$objName, $objName, QAfterWhere> any${id.dartName.capitalize()}() {
+    QueryBuilder<$objName, $objName, QAfterWhereClause> any${id.dartName.capitalize()}() {
       return QueryBuilder.apply(this, (query) {
         return query.addWhereClause(const IdWhereClause.any());
       });
@@ -153,7 +153,7 @@ class WhereGenerator {
       return '';
     }
     return '''
-    QueryBuilder<$objName, $objName, QAfterWhere> $name() {
+    QueryBuilder<$objName, $objName, QAfterWhereClause> $name() {
       return QueryBuilder.apply(this, (query) {
         return query.addWhereClause(
           const IndexWhereClause.any(indexName: r'${index.name}'),
