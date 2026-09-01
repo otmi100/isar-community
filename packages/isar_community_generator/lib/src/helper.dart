@@ -44,7 +44,7 @@ extension ClassElementX on ClassElement {
                 e.isStatic ||
                 ignoreFields.contains(e.name) ||
                 _ignoreChecker.hasAnnotationOf(e.nonSynthetic) ||
-                (e.isSynthetic &&
+                (e.nonSynthetic != e &&
                     e.getter != null &&
                     _ignoreChecker.hasAnnotationOf(e.getter!))) {
               return false;
