@@ -7,7 +7,6 @@ abstract class MyAbstractClass<T> {
 
 @collection
 class Model<T> extends MyAbstractClass<T> {
-  @override
   Id? id;
 
   @override
